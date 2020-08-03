@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  companion:
+    build:
+      context: companion
+    volumes:
+      - companion_node:/app/node_modules
+    tmpfs:
+      - /tmp
+    command: node src/server.js
+    env_file: companion/.env
+    ports:
+      - 3020:3020
+  app:
+    image: node:12
+    command: npx webpack --watch
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      COMPANION_URL: http://companion:3020/
+    depends_on:
+      - companion
+  web:
+    image: node:alpine
+    command: npx serve /www
+    volumes:
+      - ./dist:/www
+    ports:
+      - 5000:5000
+volumes:
+  companion_node:
