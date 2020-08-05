@@ -5,4 +5,4 @@ COPY src src
 
 RUN patch -p4 < 0001-Support-running-standalone-with-custom-options.patch
 
-CMD ["node", "server.js"]
+CMD ["node", "src/server.js"]

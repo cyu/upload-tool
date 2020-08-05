@@ -3,6 +3,7 @@ services:
   companion:
     build:
       context: companion
+    image: uppy-companion:latest
     volumes:
       - companion_node:/app/node_modules
     tmpfs:
